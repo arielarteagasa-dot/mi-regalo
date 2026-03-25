@@ -1,0 +1,130 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ti ❤️</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#111;
+color:white;
+font-family:Arial;
+overflow:hidden;
+}
+
+/* INICIO */
+#inicio{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+}
+
+#inicio h1{
+color:#ff4d6d;
+}
+
+.corazon{
+font-size:60px;
+animation:latir 1s infinite;
+}
+
+@keyframes latir{
+50%{transform:scale(1.2);}
+}
+
+/* CONTENIDO */
+#contenido{
+display:none;
+text-align:center;
+}
+
+button{
+padding:10px 20px;
+border:none;
+background:#ff4d6d;
+color:white;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* CARTA */
+#carta{
+display:none;
+margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PANTALLA INICIAL -->
+<div id="inicio">
+<div class="corazon">❤️</div>
+<h1>Toca para empezar</h1>
+</div>
+
+<!-- AUDIO -->
+<audio id="musica" loop>
+<source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
+<!-- CONTENIDO -->
+<div id="contenido">
+<h2>Para Ti ❤️</h2>
+<p>Tengo algo que decirte...</p>
+
+<button onclick="mostrarCarta()">Abrir carta</button>
+
+<div id="carta">
+<p>
+Eres lo mejor que me ha pasado 💖<br><br>
+Gracias por estar conmigo.<br><br>
+<b>Te amo ❤️</b>
+</p>
+
+<img src="foto.jpg" width="200" onerror="this.style.display='none'">
+</div>
+</div>
+
+<script>
+const inicio = document.getElementById("inicio");
+const contenido = document.getElementById("contenido");
+const musica = document.getElementById("musica");
+
+/* 🔥 ESTO HACE QUE LA MÚSICA FUNCIONE */
+inicio.addEventListener("click", () => {
+
+inicio.style.display="none";
+contenido.style.display="block";
+
+/* IMPORTANTE */
+musica.currentTime = 0;
+
+musica.play().catch(() => {
+alert("Toca otra vez para activar la música ❤️");
+});
+
+});
+
+/* CARTA */
+function mostrarCarta(){
+document.getElementById("carta").style.display="block";
+}
+</script>
+
+</body>
+</html>
+```
