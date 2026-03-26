@@ -1,130 +1,184 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Ti ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Gordita Preciosa ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --pink: #ff99cc;
+            --purple: #d57eeb;
+            --gold: #fccb90;
+            --love: #ff6b81;
+        }
 
-<style>
-body{
-margin:0;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#111;
-color:white;
-font-family:Arial;
-overflow:hidden;
-}
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            font-family: 'Quicksand', sans-serif;
+            color: white;
+            perspective: 1000px;
+            background: #050505;
+        }
 
-/* INICIO */
-#inicio{
-position:fixed;
-width:100%;
-height:100%;
-background:black;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-cursor:pointer;
-}
+        #nebula {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 50% 50%, #1b2735 0%, #090a0f 100%);
+            background-size: 400% 400%;
+            animation: nebulaMove 15s ease infinite;
+        }
 
-#inicio h1{
-color:#ff4d6d;
-}
+        @keyframes nebulaMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-.corazon{
-font-size:60px;
-animation:latir 1s infinite;
-}
+        .particle {
+            position: absolute;
+            background: white; border-radius: 50%;
+            opacity: 0.6; filter: blur(2px);
+            animation: floatParticle linear infinite; z-index: -1;
+        }
 
-@keyframes latir{
-50%{transform:scale(1.2);}
-}
+        @keyframes floatParticle {
+            to { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
 
-/* CONTENIDO */
-#contenido{
-display:none;
-text-align:center;
-}
+        #ui-container {
+            position: absolute; top: 5%; width: 100%; text-align: center;
+            z-index: 10; pointer-events: none;
+        }
 
-button{
-padding:10px 20px;
-border:none;
-background:#ff4d6d;
-color:white;
-border-radius:20px;
-cursor:pointer;
-}
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem; color: var(--gold);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            margin: 0; animation: floatTitle 3s ease-in-out infinite;
+        }
 
-/* CARTA */
-#carta{
-display:none;
-margin-top:20px;
-}
-</style>
+        @keyframes floatTitle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        #contador {
+            margin-top: 10px; font-weight: 700; letter-spacing: 1px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px; border-radius: 50px;
+            backdrop-filter: blur(5px); display: inline-block;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .phrase-trail {
+            position: absolute;
+            color: white; pointer-events: none;
+            font-weight: bold; font-size: 1.2rem;
+            animation: fadeUpSlow 2.5s ease-out forwards;
+            z-index: 1000; 
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.9), 0 0 10px var(--pink);
+            white-space: nowrap;
+        }
+
+        @keyframes fadeUpSlow {
+            0% { transform: translateY(0) scale(0.8); opacity: 0; }
+            20% { opacity: 1; transform: translateY(-10px) scale(1.1); }
+            100% { transform: translateY(-80px) scale(1); opacity: 0; }
+        }
+
+        .interactive-obj {
+            position: absolute; cursor: pointer; z-index: 5;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 3rem; user-select: none;
+            filter: drop-shadow(0 0 10px white);
+        }
+
+        .interactive-obj:hover { transform: scale(1.4) rotate(15deg); filter: drop-shadow(0 0 20px var(--gold)); }
+
+        #final-letter-btn {
+            display: none; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px 40px; background: var(--gold); border: none;
+            border-radius: 50px; font-family: 'Dancing Script';
+            font-size: 2rem; color: #333; cursor: pointer;
+            box-shadow: 0 0 30px var(--gold); z-index: 100;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } }
+
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 100;
+            align-items: center; justify-content: center; backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: white; padding: 25px; border-radius: 20px;
+            text-align: center; color: #333; max-width: 320px;
+            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+            animation: popIn 0.4s ease-out;
+        }
+
+        @keyframes popIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        
+        .modal img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
+        .modal-text { margin-top: 20px; font-weight: 500; font-size: 1.1rem; }
+
+        .trivia-btn {
+            display: block; width: 100%; padding: 10px; margin: 5px 0;
+            border-radius: 10px; cursor: pointer;
+        }
+
+        .btn-close {
+            background: var(--love); color: white; border: none;
+            padding: 10px 25px; border-radius: 20px; margin-top: 20px;
+        }
+
+        .falling-magic {
+            position: absolute; top: -50px; pointer-events: none; z-index: 500;
+            animation: fallMagic linear infinite;
+        }
+
+        @keyframes fallMagic {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
 </head>
 
-<body>
+<body onmousemove="createTrail(event)" ontouchmove="createTrailTouch(event)">
 
-<!-- PANTALLA INICIAL -->
-<div id="inicio">
-<div class="corazon">❤️</div>
-<h1>Toca para empezar</h1>
-</div>
+<div id="nebula"></div>
 
-<!-- AUDIO -->
-<audio id="musica" loop>
-<source src="cancion.mp3" type="audio/mpeg">
-</audio>
-
-<!-- CONTENIDO -->
-<div id="contenido">
-<h2>Para Ti ❤️</h2>
-<p>Tengo algo que decirte...</p>
-
-<button onclick="mostrarCarta()">Abrir carta</button>
-
-<div id="carta">
-<p>
-Eres lo mejor que me ha pasado 💖<br><br>
-Gracias por estar conmigo.<br><br>
-<b>Te amo ❤️</b>
-</p>
-
-<img src="foto.jpg" width="200" onerror="this.style.display='none'">
-</div>
+<div id="ui-container">
+    <h1>Nuestra Galaxia Mágica</h1>
+    <div id="contador"></div>
 </div>
 
 <script>
-const inicio = document.getElementById("inicio");
-const contenido = document.getElementById("contenido");
-const musica = document.getElementById("musica");
+const startDate = new Date('October 30, 2025 00:00:00').getTime();
 
-/* 🔥 ESTO HACE QUE LA MÚSICA FUNCIONE */
-inicio.addEventListener("click", () => {
+function updateCounter() {
+    const now = new Date().getTime();
+    const diff = now - startDate;
 
-inicio.style.display="none";
-contenido.style.display="block";
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-/* IMPORTANTE */
-musica.currentTime = 0;
-
-musica.play().catch(() => {
-alert("Toca otra vez para activar la música ❤️");
-});
-
-});
-
-/* CARTA */
-function mostrarCarta(){
-document.getElementById("carta").style.display="block";
+    document.getElementById('contador').innerHTML =
+        `Llevamos juntos: ${d}d ${h}h ${m}m ${s}s`;
 }
+setInterval(updateCounter, 1000);
+updateCounter();
 </script>
 
 </body>
 </html>
-```
